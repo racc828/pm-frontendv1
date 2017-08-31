@@ -1,4 +1,9 @@
 /* Tag styles */
+.side-bar .float-right,
+.add-task-btn {
+  display:none;
+}
+
 
 html {
   box-sizing:border-box;
@@ -54,10 +59,6 @@ h1, h2, h3, h4, h5, h6 {
   background:grey;
   height:500px;
   float:left;
-}
-
-.side-list-btn-container button {
-  width:100%;
 }
 
 .float-right {

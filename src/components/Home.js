@@ -32,11 +32,19 @@ export default class Home extends React.Component {
      }
 
   createProject = (newProject) => {
-    console.log(this.state.currentUser)
     ProjectsAdapter.createProject(newProject, this.state.currentUser)
     .then(newData => {
       this.setState({
         projects: [...this.state.projects, newData]
+      })
+    })
+  }
+
+  deleteProject = (project) => {
+    ProjectsAdapter.deleteProject(project, this.state.currentUser)
+    .then(newData => {
+      this.setState({
+        projects: newData
       })
     })
   }
@@ -65,10 +73,10 @@ export default class Home extends React.Component {
            <h6>Projects</h6>
            <button className="float-right"><i className="fa fa-plus"></i></button>
            <SubmitProject currentUser={this.state.currentUser} createProject={this.createProject} />
-           <ProjectOptions projects={this.state.projects} setActiveProject={this.setActiveProject}/>
+           <ProjectOptions projects={this.state.projects} setActiveProject={this.setActiveProject} deleteProject={this.deleteProject}/>
          </div>
          <div className="board-container">
-           <Board filteredProjects={this.filterProject()} activeProject={this.state.activeProject}/>
+           <Board filteredProjects={this.filterProject()} activeProject={this.state.activeProject} />
          </div>
       </div>
     )

@@ -10,6 +10,11 @@ handleClick = (e) => {
   this.props.setActiveProject(activeProject)
 }
 
+handleDelete = (e) => {
+  let targetProject = parseInt(e.currentTarget.dataset.id)
+  this.props.deleteProject(targetProject)
+}
+
 render() {
   return(
     <div>
@@ -17,6 +22,9 @@ render() {
         <div className="side-list-btn-container" key={i}>
           <button onClick={this.handleClick} data-id={project.id}>
             {project.name}
+          </button>
+          <button onClick={this.handleDelete} data-id={project.id}>
+            <i className="fa fa-trash-o"> </i>
           </button>
         </div> )}
     </div>

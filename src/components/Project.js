@@ -13,6 +13,20 @@ export default class Project extends React.Component {
 
   }
 
+  componentDidMount() {
+    ListsAdapter.getLists(this.props.project.id)
+    .then( newlists => {
+        return newlists.filter((list) => {
+          return list.project_id === this.props.project.id
+        })
+      })
+    .then( data => {
+        this.setState({
+          lists: data
+        })
+    })
+  }
+
   componentWillReceiveProps() {
     ListsAdapter.getLists(this.props.project.id)
     .then( newlists => {
