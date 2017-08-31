@@ -7,13 +7,48 @@ html {
   background:#fff;
 }
 
-/* Class Styles */
+input {
+  outline:none;
+}
 
+h1, h2, h3, h4, h5, h6 {
+  text-transform:uppercase;
+}
+
+/* Class Styles */
 .container {
-  width:95%;
+  width:99%;
   margin:auto;
 }
 
 .error {
   color:#ff0000;
+}
+
+/* Home */
+
+.side-bar {
+  width:20%;
+  background:pink;
+  height:500px;
+  float:left;
+}
+
+.board-container {
+  width:80%;
+  background:grey;
+  height:500px;
+  float:left;
+}
+
+.float-right {
+  float:right;
+}
+
+.small-div {
+  width:1%;
+  float:left;
+  height:10px;
+  margin-left:2px;
+  background:black;
 }

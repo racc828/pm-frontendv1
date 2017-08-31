@@ -26,10 +26,9 @@ class App extends Component {
   componentDidMount(){
     SessionsAdapter.currentUser()
       .then( data => {
-        console.log(data)
-        // this.setState({
-        //   currentUser: data
-        // })
+        this.setState({
+          currentUser: data
+        })
       })
      }
 
