@@ -54,6 +54,17 @@ export default class List extends React.Component {
     })
   }
 
+  deleteTask = (task) => {
+    TasksAdapter.deleteTask(task, this.props.list.id)
+    .then( tasks => {
+        this.setState({
+          tasks: tasks
+        })
+    })
+  }
+
+
+
   render() {
     return(
       <div className="list-component">
@@ -64,7 +75,7 @@ export default class List extends React.Component {
         </button>
         <SubmitTask createTask={this.createTask}/>
         {this.state.tasks.map((task, i) => {
-          return <Task task={task} key={i}/>
+          return <Task task={task} key={i} deleteTask={this.deleteTask}/>
         })}
       </div>
     )
