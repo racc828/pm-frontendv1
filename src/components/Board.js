@@ -9,15 +9,18 @@ export default class Board extends React.Component {
     this.state = {
       currentUser:{},
       projects: [],
-      activeProject: this.props.activeProject
+      activeProject: 1
       }
     }
 
+
+
+
   render(){
     return(
-      <div>
+      <div className="board-component">
         {this.props.filteredProjects.map((project, i) =>
-          <Project project={project} key={i}/>
+          <Project project={project} key={i} activeProject={this.state.activeProject}/>
           )}
       </div>
     )

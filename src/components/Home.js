@@ -12,7 +12,7 @@ export default class Home extends React.Component {
     this.state = {
       currentUser: {},
       projects: [],
-      activeProject: null
+      activeProject: 1
     }
   }
 

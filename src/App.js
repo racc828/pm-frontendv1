@@ -73,15 +73,11 @@ class App extends Component {
   }
 
   renderHome = () => {
-    return (
-      <Home logOut={this.logOut} currentUser ={this.state.currentUser}/>
-    )
+    return <Home logOut={this.logOut} currentUser ={this.state.currentUser}/>
   }
 
   renderSignUp = () => {
-    return(
-      <SignUp createUser={this.createUser} />
-    )
+    return <SignUp createUser={this.createUser} />
   }
 
 
