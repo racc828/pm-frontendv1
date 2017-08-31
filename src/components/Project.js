@@ -48,7 +48,6 @@ export default class Project extends React.Component {
       }))
   }
 
-  ////******* deltet list
 
   deleteList = (list) => {
     ListsAdapter.deleteList(list, this.props.project.id)
