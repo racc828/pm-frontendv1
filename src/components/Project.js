@@ -48,6 +48,15 @@ export default class Project extends React.Component {
       }))
   }
 
+  ////******* deltet list
+
+  deleteList = (list) => {
+    ListsAdapter.deleteList(list, this.props.project.id)
+    .then(data => this.setState({
+        lists: data
+      }))
+  }
+
 
   render() {
     return(
@@ -55,7 +64,7 @@ export default class Project extends React.Component {
         <SubmitList createList={this.createList} />
         <div>{this.props.project.name}</div>
         {this.state.lists.map((list, i) => {
-          return <List list={list} key={i}/>
+          return <List deleteList={this.deleteList} list={list} key={i}/>
         })}
       </div>
     )

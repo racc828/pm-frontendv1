@@ -21,8 +21,26 @@ export default class ListsAdapter {
       .then( lists => {
          return lists.map(list => list)
     })
-
   }
+
+  static deleteList(listId, currentProject) {
+    return fetch(`http://localhost:3000/api/v1/lists/${listId}`, {
+      method: 'DELETE',
+      headers: headers(),
+      body: JSON.stringify({
+        project_id: `${currentProject}`
+      })
+    })
+    .then( resp => resp.json())
+    .then( lists => {
+       return lists.filter((list) => list.project_id == currentProject)
+    })
+  }
+
+
+
+
+
 }
 
 

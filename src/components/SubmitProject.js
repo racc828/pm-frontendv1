@@ -20,6 +20,7 @@ export default class SubmitProject extends React.Component {
     e.preventDefault()
     let newProject = this.state
     this.props.createProject(newProject)
+    e.target.reset()
   }
 
   render() {

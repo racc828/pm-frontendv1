@@ -25,6 +25,7 @@ export default class SubmitTask extends React.Component {
     e.preventDefault()
     let newTask = this.state
     this.props.createTask(newTask)
+    e.target.reset()
   }
 
   render() {

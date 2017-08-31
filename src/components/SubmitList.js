@@ -22,6 +22,7 @@ export default class SubmitList extends React.Component {
     e.preventDefault()
     let newList = this.state
     this.props.createList(newList)
+    e.target.reset()
   }
 
   render() {

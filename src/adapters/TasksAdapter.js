@@ -2,7 +2,6 @@ const path = 'http://localhost:3000/api/v1/tasks'
 export default class TasksAdapter {
 
   static createTask(newTask, listId) {
-    debugger
     return fetch(path,{
       method: 'POST',
       headers: headers(),
