@@ -60,8 +60,8 @@ export default class Project extends React.Component {
   render() {
     return(
       <div className="project-component">
-        <SubmitList createList={this.createList} />
         <div>{this.props.project.name}</div>
+        <SubmitList createList={this.createList} />
         {this.state.lists.map((list, i) => {
           return <List deleteList={this.deleteList} list={list} key={i}/>
         })}

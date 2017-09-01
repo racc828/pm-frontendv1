@@ -66,8 +66,14 @@ export default class Home extends React.Component {
   render() {
     return(
       <div id="home-wrapper">
-        <div>
-           <button onClick={this.props.logOut}>Sign Out {this.state.currentUser.firstname} </button>
+        <div className="top-header">
+          <div className="top-header-left">
+               <button onClick={this.props.logOut}>Sign Out {this.state.currentUser.firstname} </button>
+           </div>
+           <div className="top-header-right">
+             <p>HEY {this.state.currentUser.firstname}</p>
+           </div>
+
          </div>
          <div className="side-bar">
            <h6>Projects</h6>
