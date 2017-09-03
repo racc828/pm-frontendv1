@@ -1,6 +1,7 @@
 import React from 'react'
 import SubmitTask from './SubmitTask'
 import Task from './Task'
+import EditList from './EditList'
 import TasksAdapter from '../adapters/TasksAdapter'
 
 
@@ -11,6 +12,7 @@ export default class List extends React.Component {
 
     this.state = {
       tasks: [],
+      showEditList: false,
       positionX: null,
       positionY: null
     }
@@ -44,6 +46,11 @@ export default class List extends React.Component {
     })
   }
 
+  editList = (list) => {
+    this.props.editList(list)
+    this.setState({showEditList:false})
+  }
+
   deleteList = () => {
     this.props.deleteList(this.props.list.id)
   }
@@ -66,21 +73,25 @@ export default class List extends React.Component {
     })
   }
 
-  handleStop = (e, ui) => {
-    this.setState({
-      positionX: ui.lastX,
-      positionY: ui.lastY
-    })
-  }
+  showEditList = () => this.setState({showEditList: !this.state.showEditList})
+
+  // handleStop = (e, ui) => {
+  //   this.setState({
+  //     positionX: ui.lastX,
+  //     positionY: ui.lastY
+  //   })
+  // }
 
   render() {
     return(
-
       <div className="list-component">
-        <h6 className="list-title">{this.props.list.name}</h6>
+        { this.state.showEditList ? <EditList name={this.props.list.name} listId={this.props.list.id} editList={this.editList}/> : <h6 className="list-title">{this.props.list.name}</h6>}
         <button className="float-right add-task-btn"><i className="fa fa-plus"></i></button>
         <button onClick={this.deleteList}>
           <i className="fa fa-trash-o"> </i>
+        </button>
+        <button onClick={this.showEditList}>
+          <i className="fa fa-pencil"> </i>
         </button>
         <SubmitTask createTask={this.createTask}/>
         {this.state.tasks.map((task, i) => {

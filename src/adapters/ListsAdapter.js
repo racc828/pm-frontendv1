@@ -26,6 +26,21 @@ export default class ListsAdapter {
     })
   }
 
+
+  static editList(list, projectId) {
+    debugger
+    return fetch(`http://localhost:3000/api/v1/lists/${list.id}`, {
+      method: 'PATCH',
+      headers:headers(),
+      body: JSON.stringify({
+        name: `${list.name}`,
+        project_id: `${projectId}`
+      })
+    })
+    .then( resp => resp.json())
+  }
+
+
   static deleteList(listId, currentProject) {
     return fetch(`http://localhost:3000/api/v1/lists/${listId}`, {
       method: 'DELETE',

@@ -51,6 +51,20 @@ export default class Project extends React.Component {
       }))
   }
 
+  editList = (list) => {
+    ListsAdapter.editList(list, this.props.project.id)
+    .then( data => {
+        let index = this.state.lists.findIndex(stateList=> stateList.id === list.id)
+        this.setState({
+            lists: [
+             ...this.state.lists.slice(0,index),
+             Object.assign({}, this.state.lists[index], data),
+             ...this.state.lists.slice(index+1)
+           ]
+         });
+      })
+  }
+
 
   deleteList = (list) => {
     ListsAdapter.deleteList(list, this.props.project.id)
@@ -70,7 +84,7 @@ export default class Project extends React.Component {
          </button>
         <SubmitList createList={this.createList} />
         {this.state.lists.map((list, i) => {
-          return <List deleteList={this.deleteList} list={list} key={i}/>
+          return <List editList={this.editList} deleteList={this.deleteList} list={list} key={i}/>
         })}
       </div>
     )
