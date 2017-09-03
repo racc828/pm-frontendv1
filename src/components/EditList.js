@@ -9,7 +9,6 @@ export default class EditList extends React.Component {
     }
   }
 
-
   handleChange = (e) => {
     let property = e.target.name
     let value = e.target.value

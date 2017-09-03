@@ -25,20 +25,18 @@ export default class TasksAdapter {
       })
     }
 
-    // static editTask(taskData, taskId) {
-    //   debugger
-    //   return fetch(`http://localhost:3000/api/v1/tasks/${taskId}`, {
-    //     method: 'PATCH',
-    //     headers:headers(),
-    //     body: JSON.stringify({
-    //       name: `${taskData.name}`,
-    //       description: `${taskData.description}`,
-    //       priority: `${taskData.priority}`,
-    //       list_id: `${taskData.list_id}`
-    //     })
-    //   })
-    //   .then( resp => resp.json())
-    // }
+    static editTask(task, listId) {
+      return fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+        method: 'PATCH',
+        headers:headers(),
+        body: JSON.stringify({
+          title: `${task.title}`,
+          description: `${task.description}`,
+          list_id: `${listId}`
+        })
+      })
+      .then( resp => resp.json())
+    }
 
     static deleteTask(task, listId) {
       return fetch(`http://localhost:3000/api/v1/tasks/${task}`, {

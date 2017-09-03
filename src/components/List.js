@@ -64,6 +64,20 @@ export default class List extends React.Component {
     })
   }
 
+  editTask = (task) => {
+    TasksAdapter.editTask(task, this.props.list.id)
+    .then(task => {
+        let index = this.state.tasks.findIndex(stateTask=> stateTask.id === task.id)
+        this.setState({
+          tasks: [
+           ...this.state.tasks.slice(0,index),
+           Object.assign({}, this.state.tasks[index], task),
+           ...this.state.tasks.slice(index+1)
+         ]
+        })
+      })
+  }
+
   deleteTask = (task) => {
     TasksAdapter.deleteTask(task, this.props.list.id)
     .then( tasks => {
@@ -95,7 +109,7 @@ export default class List extends React.Component {
         </button>
         <SubmitTask createTask={this.createTask}/>
         {this.state.tasks.map((task, i) => {
-          return <Task task={task} key={i} deleteTask={this.deleteTask}/>
+          return <Task task={task} key={i} editTask={this.editTask} deleteTask={this.deleteTask}/>
         })}
       </div>
     )
