@@ -6,7 +6,9 @@ export default class SubmitList extends React.Component {
   super()
 
     this.state = {
-      name: ""
+      name: "",
+      positionX: null,
+      positionY: null
     }
   }
 

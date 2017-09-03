@@ -1,6 +1,8 @@
 import React from 'react'
 import ListsAdapter from '../adapters/ListsAdapter'
+import ProjectsAdapter from '../adapters/ProjectsAdapter'
 import List from './List'
+import EditProject from './EditProject'
 import SubmitList from './SubmitList'
 
 export default class Project extends React.Component {
@@ -8,7 +10,8 @@ export default class Project extends React.Component {
     super(props)
 
     this.state ={
-      lists: []
+      lists: [],
+      showEditProject: false
     }
 
   }
@@ -57,10 +60,14 @@ export default class Project extends React.Component {
   }
 
 
+  showEditProject = () => this.setState({showEditProject: !this.state.showEditProject})
+
   render() {
     return(
       <div className="project-component">
-        <div>{this.props.project.name}</div>
+        { this.state.showEditProject ? <EditProject project={this.props.project.name} editProject={this.props.editProject} projectId = {this.props.project.id} showEditProject={this.showEditProject}/> : <div>{this.props.project.name}</div>}
+        <button onClick={this.showEditProject}> <i className="fa fa-pencil"></i>
+         </button>
         <SubmitList createList={this.createList} />
         {this.state.lists.map((list, i) => {
           return <List deleteList={this.deleteList} list={list} key={i}/>

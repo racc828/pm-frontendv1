@@ -23,6 +23,19 @@ export default class ProjectsAdapter {
       })
     }
 
+    static editProject(project, currentUser) {
+    return fetch(`http://localhost:3000/api/v1/projects/${project.projectId}`, {
+      method: 'PATCH',
+      headers:headers(),
+      body: JSON.stringify({
+        name: `${project.name}`,
+        user_id: `${currentUser.id}`
+
+      })
+    })
+    .then( resp => resp.json())
+    }
+
     static deleteProject(projectId, currentUser) {
       return fetch(`http://localhost:3000/api/v1/projects/${projectId}`, {
         method: 'DELETE',

@@ -1,5 +1,4 @@
 import React from 'react'
-import Draggable from 'react-draggable'; // The default
 
 
 export default class Task extends React.Component {
@@ -15,8 +14,6 @@ export default class Task extends React.Component {
   }
 
 
-
-
   deleteTask = () => {
     this.props.deleteTask(this.props.task.id)
   }
@@ -30,10 +27,7 @@ export default class Task extends React.Component {
 
   render() {
     return(
-      <Draggable
-        onStop={this.handleStop}
-        grid={[100, 100]}
-        axis="y">
+
         <div className="task-component">
           <p>{this.props.task.title}</p>
           <p>{this.props.task.description}</p>
@@ -41,7 +35,6 @@ export default class Task extends React.Component {
             <i className="fa fa-trash-o"> </i>
           </button>
         </div>
-      </Draggable>
     )
   }
 

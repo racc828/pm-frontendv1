@@ -17,7 +17,7 @@ export default class Board extends React.Component {
     return(
       <div className="board-component">
         {this.props.filteredProjects.map((project, i) =>
-          <Project project={project} key={i} activeProject={this.state.activeProject}/>
+          <Project project={project} key={i} activeProject={this.state.activeProject} currentUser={this.props.currentUser} editProject={this.props.editProject}/>
           )}
       </div>
     )

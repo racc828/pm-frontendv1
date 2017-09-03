@@ -31,6 +31,23 @@ export default class Home extends React.Component {
         })
      }
 
+   editProject = (project) => {
+       return ProjectsAdapter.editProject(project, this.props.currentUser)
+         .then( data => {
+           console.log(data)
+           let index = this.state.projects.findIndex(projectState=> projectState.id === project.projectId)
+           console.log(index)
+           debugger
+           this.setState({
+               projects: [
+                ...this.state.projects.slice(0,index),
+                Object.assign({}, this.state.projects[index], data),
+                ...this.state.projects.slice(index+1)
+              ]
+            });
+         })
+     }
+
   createProject = (newProject) => {
     ProjectsAdapter.createProject(newProject, this.state.currentUser)
     .then(newData => {
@@ -73,7 +90,6 @@ export default class Home extends React.Component {
            <div className="top-header-right">
              <p>HEY {this.state.currentUser.firstname}</p>
            </div>
-
          </div>
          <div className="side-bar">
            <h6>Projects</h6>
@@ -82,7 +98,7 @@ export default class Home extends React.Component {
            <ProjectOptions projects={this.state.projects} setActiveProject={this.setActiveProject} deleteProject={this.deleteProject}/>
          </div>
          <div className="board-container">
-           <Board filteredProjects={this.filterProject()} activeProject={this.state.activeProject} />
+           <Board editProject={this.editProject} filteredProjects={this.filterProject()} activeProject={this.state.activeProject} currentUser={this.state.currentUser} />
          </div>
       </div>
     )

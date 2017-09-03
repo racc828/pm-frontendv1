@@ -2,12 +2,15 @@ const path = 'http://localhost:3000/api/v1/lists'
 export default class ListsAdapter {
 
   static createList(list, currentProject) {
+    debugger
     return fetch(path,{
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({
         name: `${list.name}`,
-        project_id: `${currentProject}`
+        project_id: `${currentProject}`,
+        positionX: `${list.positionX}`,
+        positionY: `${list.positionY}`
       })
     })
     .then( resp => resp.json())
@@ -36,9 +39,6 @@ export default class ListsAdapter {
        return lists.filter((list) => list.project_id == currentProject)
     })
   }
-
-
-
 
 
 }

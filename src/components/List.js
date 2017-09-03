@@ -2,7 +2,6 @@ import React from 'react'
 import SubmitTask from './SubmitTask'
 import Task from './Task'
 import TasksAdapter from '../adapters/TasksAdapter'
-import Draggable from 'react-draggable'; // The default
 
 
 export default class List extends React.Component {
@@ -76,10 +75,7 @@ export default class List extends React.Component {
 
   render() {
     return(
-      <Draggable
-        onStop={this.handleStop}
-        grid={[200, 200]}
-        axis="x">
+
       <div className="list-component">
         <h6 className="list-title">{this.props.list.name}</h6>
         <button className="float-right add-task-btn"><i className="fa fa-plus"></i></button>
@@ -91,7 +87,6 @@ export default class List extends React.Component {
           return <Task task={task} key={i} deleteTask={this.deleteTask}/>
         })}
       </div>
-    </Draggable>
     )
   }
 
