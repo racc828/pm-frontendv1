@@ -6,7 +6,7 @@ export default class ProjectOptions extends React.Component {
 
 
 handleClick = (e) => {
-  let activeProject = e.target.dataset.id
+  let activeProject = parseInt(e.target.dataset.id)
   this.props.setActiveProject(activeProject)
 }
 
@@ -17,13 +17,13 @@ handleDelete = (e) => {
 
 render() {
   return(
-    <div>
+    <div className="project-options-component">
       {this.props.projects.map((project, i) =>
         <div className="side-list-btn-container" key={i}>
-          <button onClick={this.handleClick} data-id={project.id}>
+          <button onClick={this.handleClick} className="project-option-btn" data-id={project.id}>
             {project.name}
           </button>
-          <button onClick={this.handleDelete} data-id={project.id}>
+          <button onClick={this.handleDelete} className="projet-option-delete-btn" data-id={project.id}>
             <i className="fa fa-trash-o"> </i>
           </button>
         </div> )}

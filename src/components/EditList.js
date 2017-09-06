@@ -23,11 +23,12 @@ export default class EditList extends React.Component {
     this.props.editList(list)
   }
 
+
   render() {
     return(
       <div id="edit-list-component">
         <form onSubmit={this.handleSubmit} id="edit-list-form">
-          <input type="text" name="name" onChange={this.handleChange} placeholder="List Name" value={this.state.name} required/>
+          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="List Name" required autoFocus/>
           <button className="btn submit-btn" type="submit">Edit List Name </button>
         </form>
       </div>

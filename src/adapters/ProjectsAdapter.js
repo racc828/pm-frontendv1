@@ -18,9 +18,6 @@ export default class ProjectsAdapter {
       headers: headers()
       })
       .then( resp => resp.json())
-      .then( projects => {
-         return projects.filter((project) => parseInt(project.user_id) === currentUser.id)
-      })
     }
 
     static editProject(project, currentUser) {
@@ -57,6 +54,6 @@ let headers = () => {
   return {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
+    'Authorization': `${localStorage.getItem('token')}`
   }
 }

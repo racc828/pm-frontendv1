@@ -9,7 +9,6 @@ export default class EditProject extends React.Component {
     }
   }
 
-
   handleChange = (e) => {
     let property = e.target.name
     let value = e.target.value
@@ -29,8 +28,8 @@ export default class EditProject extends React.Component {
     return(
       <div id="edit-project-component">
         <form onSubmit={this.handleSubmit} id="edit-project-form">
-          <input type="text" name="name" onChange={this.handleChange} value={this.state.name} required/>
-          <button className="btn submit-btn" type="submit">Edit Project Name </button>
+          <input className="edit-project-input" type="text" name="name" onChange={this.handleChange} value={this.state.name} required autoFocus/>
+          <button className="btn submit-btn edit-project-btn" type="submit"><i className="fa fa-floppy-o"></i></button>
         </form>
       </div>
     )

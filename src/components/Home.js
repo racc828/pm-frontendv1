@@ -12,7 +12,8 @@ export default class Home extends React.Component {
     this.state = {
       currentUser: {},
       projects: [],
-      activeProject: 1
+      activeProject: 9000,
+      showAddProject:false
     }
   }
 
@@ -34,10 +35,7 @@ export default class Home extends React.Component {
    editProject = (project) => {
        return ProjectsAdapter.editProject(project, this.props.currentUser)
          .then( data => {
-           console.log(data)
            let index = this.state.projects.findIndex(projectState=> projectState.id === project.projectId)
-           console.log(index)
-           debugger
            this.setState({
                projects: [
                 ...this.state.projects.slice(0,index),
@@ -80,21 +78,28 @@ export default class Home extends React.Component {
     }
   }
 
+  showAddProject = () => this.setState({showAddProject: !this.state.showAddProject})
+
   render() {
     return(
       <div id="home-wrapper">
         <div className="top-header">
           <div className="top-header-left">
-               <button onClick={this.props.logOut}>Sign Out {this.state.currentUser.firstname} </button>
+               <div> {this.state.currentUser.firstname} </div>
            </div>
            <div className="top-header-right">
-             <p>HEY {this.state.currentUser.firstname}</p>
+             <a> My Tasks </a>
+             <button className="log-out btn" onClick={this.props.logOut}>Log Out</button>
            </div>
          </div>
          <div className="side-bar">
-           <h6>Projects</h6>
-           <button className="float-right"><i className="fa fa-plus"></i></button>
-           <SubmitProject currentUser={this.state.currentUser} createProject={this.createProject} />
+          <div>
+            <h6 className="projects-side-header">PROJECTS
+              <button className="float-right add-project-btn circle-btn" onClick={this.showAddProject}><i className="fa fa-plus"></i>
+              </button>
+            </h6>
+             </div>
+           {this.state.showAddProject ? <SubmitProject currentUser={this.state.currentUser} createProject={this.createProject} /> :null}
            <ProjectOptions projects={this.state.projects} setActiveProject={this.setActiveProject} deleteProject={this.deleteProject}/>
          </div>
          <div className="board-container">

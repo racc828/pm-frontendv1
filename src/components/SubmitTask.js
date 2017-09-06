@@ -32,7 +32,7 @@ export default class SubmitTask extends React.Component {
     return(
       <div id="submit-task-component">
         <form onSubmit={this.handleSubmit} id="submit-task-form">
-          <input type="text" name="title" onChange={this.handleChange} placeholder="Title" required/>
+          <input type="text" name="title" onChange={this.handleChange} placeholder="Title" required autoFocus/>
           <input type="text" name="description" onChange={this.handleChange} placeholder="Description" required/>
           <button className="btn submit-btn" type="submit">Add Task </button>
         </form>

@@ -30,15 +30,16 @@ export default class Task extends React.Component {
   render() {
     return(
         <div className="task-component">
-          { this.state.showEditTask ? <EditTask showEditTask={this.showEditTask} title={this.props.task.title} description={this.props.task.description} id={this.props.task.id} editTask={this.props.editTask} /> : <div><p>{this.props.task.title}</p>
-          <p>{this.props.task.description}</p></div>}
-
-          <button onClick={this.deleteTask}>
-            <i className="fa fa-trash-o"> </i>
-          </button>
-          <button onClick={this.showEditTask}>
-            <i className="fa fa-pencil"> </i>
-          </button>
+          { this.state.showEditTask ? <EditTask showEditTask={this.showEditTask} title={this.props.task.title} description={this.props.task.description} id={this.props.task.id} editTask={this.props.editTask} /> : <div><p><b>{this.props.task.title}</b></p>
+          <small>{this.props.task.description}</small></div>}
+          <div className="editing-task-options">
+            <button onClick={this.deleteTask}>
+              <i className="fa fa-trash-o"> </i>
+            </button>
+            <button onClick={this.showEditTask}>
+              <i className="fa fa-pencil"> </i>
+            </button>
+          </div>
         </div>
     )
   }

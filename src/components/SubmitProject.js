@@ -28,7 +28,6 @@ export default class SubmitProject extends React.Component {
       <div id="submit-project-component">
         <form onSubmit={this.handleSubmit} id="submit-project-form">
           <input type="text" name="name" onChange={this.handleChange} placeholder="Project Name" required/>
-          <button className="btn submit-btn" type="submit">Add Project </button>
         </form>
       </div>
     )

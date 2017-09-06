@@ -1,48 +1,79 @@
 import React from 'react'
 import ListsAdapter from '../adapters/ListsAdapter'
 import ProjectsAdapter from '../adapters/ProjectsAdapter'
+import CollaboratorsAdapter from '../adapters/CollaboratorsAdapter'
+import UsersAdapter from '../adapters/UsersAdapter'
 import List from './List'
 import EditProject from './EditProject'
+import AddCollaborator from './AddCollaborator'
 import SubmitList from './SubmitList'
+import Collaborator from './Collaborator'
 
 export default class Project extends React.Component {
   constructor(props) {
+
     super(props)
-
-    this.state ={
+    this.state = {
       lists: [],
-      showEditProject: false
+      collaborators: [],
+      showEditProject: false,
+      users: [],
+      selectedCollaborator: null
     }
-
   }
 
   componentDidMount() {
-    ListsAdapter.getLists(this.props.project.id)
-    .then( newlists => {
-        return newlists.filter((list) => {
-          return list.project_id === this.props.project.id
+
+    // this.props.lists ?
+    //   this.setState( {lists:this.props.lists} ) : this.setState( {lists:[]})
+
+
+    CollaboratorsAdapter.getCollaborators(this.props.project.id)
+    .then( collaborators => {
+        return collaborators.filter((collaborator) => {
+          return collaborator.project_id === this.props.project.id
         })
       })
-    .then( data => {
+      .then(data => {
         this.setState({
-          lists: data
+          collaborators: data
         })
-    })
+      })
+
+    UsersAdapter.getUsers()
+    .then( users => {
+        let index = users.findIndex(user=> user.id === this.props.currentUser.id)
+        users.splice(index, 1)
+        this.setState({users})
+      })
+
   }
 
-  componentWillReceiveProps() {
-    ListsAdapter.getLists(this.props.project.id)
-    .then( newlists => {
-        return newlists.filter((list) => {
-          return list.project_id === this.props.project.id
+  componentWillReceiveProps(nextProps) {
+    nextProps.lists ?
+      this.setState( {lists:nextProps.lists} ) : this.setState( {lists:[]})
+
+
+    // CollaboratorsAdapter.getCollaborators(this.props.project.id)
+    // .then( collaborators => {
+    //     return collaborators.filter((collaborator) => {
+    //       return collaborator.project_id === this.props.project.id
+    //     })
+    //   })
+    //   .then(data => {
+    //     this.setState({
+    //       collaborators: data
+    //     })
+    //   })
+
+      UsersAdapter.getUsers()
+      .then( users => {
+          let index = users.findIndex(user=> user.id === this.props.currentUser.id)
+          users.splice(index, 1)
+          this.setState({users})
         })
-      })
-    .then( data => {
-        this.setState({
-          lists: data
-        })
-    })
-  }
+
+    }
 
   createList = (newList) => {
     ListsAdapter.createList(newList, this.props.project.id)
@@ -73,19 +104,52 @@ export default class Project extends React.Component {
       }))
   }
 
+  submitCollaborator = (e) => {
+    e.preventDefault()
+    CollaboratorsAdapter.createCollaborator(parseInt(this.state.selectedCollaborator), this.props.project.id)
+    .then(data => this.setState({
+      collaborators: [...this.state.collaborators, data]
+    }))
+  }
+
+  collaboratorHandleChange = (e) => {
+    let collaboratorValue = e.target.value
+    this.setState({
+      selectedCollaborator: collaboratorValue
+    })
+  }
 
   showEditProject = () => this.setState({showEditProject: !this.state.showEditProject})
 
   render() {
     return(
       <div className="project-component">
-        { this.state.showEditProject ? <EditProject project={this.props.project.name} editProject={this.props.editProject} projectId = {this.props.project.id} showEditProject={this.showEditProject}/> : <div>{this.props.project.name}</div>}
-        <button onClick={this.showEditProject}> <i className="fa fa-pencil"></i>
-         </button>
-        <SubmitList createList={this.createList} />
-        {this.state.lists.map((list, i) => {
-          return <List editList={this.editList} deleteList={this.deleteList} list={list} key={i}/>
-        })}
+        <div className="project-name-header">
+          { this.state.showEditProject ? <EditProject project={this.props.project.name} editProject={this.props.editProject} projectId = {this.props.project.id} showEditProject={this.showEditProject}/> : <h1>{this.props.project.name}
+            <button className="edit-project-btn" onClick={this.showEditProject}> <i className="fa fa-pencil"></i>
+            </button>
+          </h1>}
+        </div>
+         {this.state.collaborators.map((collaborator, i) => {
+           return <Collaborator users={this.state.users}  key={i} collaborator={collaborator}/>
+         })}
+         <div className="hide-collaborators">
+            <form onSubmit={this.submitCollaborator} >
+               <select onChange={this.collaboratorHandleChange}>
+                 <option>Add a collaborator</option>
+                 {this.state.users.map((user, i) => {
+                   return <AddCollaborator key={i} collaborator={user}/>
+                 })}
+              </select>
+              <button type="submit"> Add </button>
+            </form>
+        </div>
+        <div className="main-list-container">
+          <SubmitList createList={this.createList} />
+          {this.state.lists.map((list, i) => {
+            return <List editList={this.editList} deleteList={this.deleteList} list={list} key={i} projectId={this.props.project.id}/>
+          })}
+        </div>
       </div>
     )
   }
